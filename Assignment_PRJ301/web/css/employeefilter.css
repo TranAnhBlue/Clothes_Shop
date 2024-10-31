@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Tiêu đề chính */
+h2 {
+    color: #1565c0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Định dạng form lọc */
+form {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 15px;
+
+}
+
+/* Mỗi hàng của form */
+form table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+form table td {
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Trường nhập liệu */
+form input[type="text"],
+form input[type="date"],
+form select {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f9fafb;
+    font-size: 14px;
+}
+
+/* Nút radio của mục Gender */
+form input[type="radio"] {
+    margin: 0 5px;
+}
+
+/* Nút Submit */
+form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #1565c0;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0d47a1;
+}
+
+/* Bảng kết quả */
+table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+table, th, td {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #1565c0;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+td {
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Hàng xen kẽ màu */
+tr:nth-child(even) td {
+    background-color: #f0f3f7;
+}
+
+/* Nút quay lại trang chủ */
+a button {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 10px;
+    background-color: #f0ad4e;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+a button:hover {
+    background-color: #ec971f;
+}
+
+/* Responsive cho thiết bị di động */
+@media (max-width: 800px) {
+    form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+}

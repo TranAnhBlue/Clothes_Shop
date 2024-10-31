@@ -11,7 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <style>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productionplancreate.css">
+<!--        <style>
             /* CSS cho bảng */
             table {
                 width: 100%;
@@ -63,7 +64,7 @@
                 margin: 20px auto; /* Căn giữa phần bao viền theo chiều ngang */
                 max-width: 1200px; /* Giới hạn độ rộng tối đa cho phần bao viền */
             }
-        </style>
+        </style>-->
     </head>
     <body>
         <h2>Create Production Plan</h2>

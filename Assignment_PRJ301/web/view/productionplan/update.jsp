@@ -11,6 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Production Plan</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productionplanupdate.css">
+
     </head>
     <body>
         <jsp:include page="../master/shortprofile.jsp"></jsp:include>

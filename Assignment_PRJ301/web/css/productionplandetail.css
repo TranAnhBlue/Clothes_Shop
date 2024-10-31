@@ -1,0 +1,80 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 31, 2024, 12:11:43 PM
+    Author     : lenovo
+*/
+
+  /* General Page Styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 20px;
+        color: #333;
+    }
+
+    h1 {
+        color: #4CAF50;
+        text-align: center;
+    }
+
+    /* Form and Table Styles */
+    form {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    thead {
+        background-color: #4CAF50;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    /* Row Styles */
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #e9e9e9;
+    }
+
+    /* Input Styles */
+    input[type="text"] {
+        width: 60px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    /* Submit Button Style */
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 16px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }

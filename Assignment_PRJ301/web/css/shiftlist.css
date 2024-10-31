@@ -1,0 +1,85 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 30, 2024, 9:27:27 PM
+    Author     : lenovo
+*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Nền màu xám nhạt */
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    align-items: center; /* Canh giữa các phần tử */
+    padding: 20px;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    color: #333; /* Màu chữ đen */
+    margin-bottom: 20px; /* Khoảng cách bên dưới tiêu đề */
+}
+
+/* Table Styles */
+table {
+    width: 100%; /* Độ rộng bảng */
+    border-collapse: collapse; /* Gộp viền */
+    margin-top: 15px; /* Khoảng cách trên bảng */
+    background-color: #ffffff; /* Nền trắng cho bảng */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+/* Table Header Styles */
+table th,
+table td {
+    padding: 10px; /* Padding cho ô */
+    text-align: center; /* Canh giữa nội dung trong ô */
+    border: 1px solid #ddd; /* Đường viền xám nhạt cho ô */
+}
+
+table th {
+    background-color: #f2f2f2; /* Nền màu xám nhạt cho tiêu đề bảng */
+    color: #333; /* Màu chữ đen cho tiêu đề */
+}
+
+/* Button Styles */
+input[type="button"] {
+    background-color: #e74c3c; /* Màu đỏ */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc */
+    padding: 5px 10px; /* Padding cho nút */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+input[type="button"]:hover {
+    background-color: #c0392b; /* Màu đỏ đậm hơn khi hover */
+}
+
+/* Link Styles */
+a {
+    text-decoration: none; /* Không gạch chân */
+    color: #3498db; /* Màu xanh dương cho link */
+}
+
+a:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+}
+
+/* Back Button Styles */
+a button {
+    background-color: yellow; /* Màu vàng */
+    color: black; /* Màu chữ đen */
+    padding: 10px 20px; /* Padding cho nút */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    margin-top: 20px; /* Khoảng cách trên nút Back */
+}
+
+a button:hover {
+    background-color: #f0e68c; /* Màu vàng nhạt hơn khi hover */
+}

@@ -112,56 +112,117 @@
             }
         </script>
         <style>
-            /* CSS cho bảng */
-            table {
-                width: 100%;
-                border: 2px solid black; /* Đường viền cho bảng */
-                border-collapse: collapse; /* Gộp các đường viền vào nhau */
-                margin-bottom: 20px; /* Khoảng cách giữa các bảng */
+            /* General Page Styling */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f8f8;
+                color: #333;
+                margin: 20px;
             }
 
-            /* CSS cho ô trong bảng */
-            table th, table td {
-                border: 1px solid black; /* Đường viền cho từng ô */
-                padding: 10px; /* Khoảng cách bên trong các ô */
-                text-align: center; /* Căn giữa nội dung */
+            h1 {
+                text-align: center;
+                color: #333;
             }
 
-            /* Định dạng tiêu đề bảng */
-            table th {
-                background-color: #f2f2f2; /* Màu nền tiêu đề */
+            h3 a {
+                color: #4CAF50;
+                text-decoration: none;
                 font-weight: bold;
-            }
-
-            /* CSS cho phần tiêu đề của bảng */
-            .header {
-                font-size: 18px;
-                font-weight: bold;
-                text-align: center; /* Căn giữa nội dung của thẻ <p>.header */
                 margin: 10px 0;
+                display: inline-block;
+                text-align: center;
             }
 
-            /* CSS cho bảng đầu tiên */
-            #personnelTable {
-                background-color: #e8f4f8; /* Màu nền nhẹ cho bảng */
+            h3 a:hover {
+                text-decoration: underline;
             }
 
-            /* CSS cho bảng thứ hai */
-            #productionPlanTable {
-                background-color: #f8e8f8;
+            /* Table Styling */
+            table {
+                width: 90%;
+                margin: 20px auto;
+                border-collapse: collapse;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
             }
 
-            /* CSS cho bảng tổng số sản phẩm */
-            #totalProductsTable {
-                background-color: #e8f8e8;
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
             }
 
-            /* CSS cho viền bao quanh tất cả bảng */
-            .container {
-                border: 3px solid black; /* Đường viền bao quanh tất cả các bảng */
-                padding: 20px; /* Tạo khoảng cách giữa viền và nội dung */
-                margin: 20px auto; /* Căn giữa phần bao viền theo chiều ngang */
-                max-width: 1200px; /* Giới hạn độ rộng tối đa cho phần bao viền */
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            /* Alternating Row Colors */
+            tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            tbody tr:hover {
+                background-color: #e9e9e9;
+            }
+
+            /* Form Input Styling */
+            input[type="text"], input[type="date"], input[type="radio"] {
+                padding: 5px;
+                font-size: 14px;
+                text-align: center;
+                margin: 2px 0;
+            }
+
+            /* Update and Remove Buttons */
+            button[type="button"], input[type="button"] {
+                padding: 8px 15px;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                margin: 5px;
+                border-radius: 5px;
+            }
+
+            /* Specific Colors for Buttons */
+            button[onclick^="confirmUpdate"] {
+                background-color: #28a745;
+                color: white;
+            }
+
+            input[type="button"][value="Remove"] {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            /* Back to Home Button */
+            a button[type="button"] {
+                background-color: #ffeb3b;
+                color: black;
+                font-weight: bold;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            /* Misc */
+            a button[type="button"]:hover {
+                background-color: #fdd835;
+            }
+            /* Align gender options horizontally */
+            .gender-container {
+                display: flex;
+                align-items: center;
+                gap: 15px; /* Adjusts spacing between Male and Female options */
+            }
+
+            .gender-container label {
+                margin-right: 10px; /* Adds space between radio button and label */
+                cursor: pointer;
+            }
+
+            .gender-container input[type="radio"] {
+                margin-right: 5px; /* Adds space between radio button and label */
             }
         </style>
     </head>
@@ -193,9 +254,12 @@
                             <td>
                                 <input type="text" name="name_${e.id}" value="${e.name}">
                             </td>
-                            <td>
-                                <input type="radio" name="gender_${e.id}" value="male" ${e.gender ? 'checked' : ''}> Male
-                                <input type="radio" name="gender_${e.id}" value="female" ${!e.gender ? 'checked' : ''}> Female
+                            <td class="gender-container">
+                                <input type="radio" id="male_${e.id}" name="gender_${e.id}" value="male" ${e.gender ? 'checked' : ''}>
+                                <label for="male_${e.id}">Male</label>
+
+                                <input type="radio" id="female_${e.id}" name="gender_${e.id}" value="female" ${!e.gender ? 'checked' : ''}>
+                                <label for="female_${e.id}">Female</label>
                             </td>
                             <td>
                                 <input type="date" name="dob_${e.id}" value="${e.dob}">

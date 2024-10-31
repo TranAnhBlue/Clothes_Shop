@@ -1,0 +1,84 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 30, 2024, 9:25:31 PM
+    Author     : lenovo
+*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Nền màu xám nhạt */
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    align-items: center; /* Canh giữa các phần tử */
+    padding: 20px;
+}
+
+/* Header Styles */
+h2 {
+    text-align: center;
+    color: #333; /* Màu chữ đen */
+    margin-bottom: 20px; /* Khoảng cách bên dưới tiêu đề */
+}
+
+/* Form Styles */
+form {
+    background-color: #ffffff; /* Nền trắng cho form */
+    padding: 20px; /* Khoảng cách bên trong form */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    width: 400px; /* Độ rộng của form */
+    text-align: left; /* Canh trái nội dung trong form */
+}
+
+/* Input and Select Styles */
+form input[type="text"],
+form input[type="date"],
+form select,
+form input[type="radio"] {
+    width: 100%; /* Độ rộng 100% cho input và select */
+    padding: 10px; /* Padding cho các trường */
+    margin: 10px 0; /* Khoảng cách trên và dưới */
+    box-sizing: border-box; /* Tính toán padding và border trong width */
+    border: 1px solid #ccc; /* Đường viền xám nhạt */
+    border-radius: 4px; /* Bo góc */
+}
+
+/* Radio Button Styles */
+form input[type="radio"] {
+    width: auto; /* Đặt độ rộng cho nút radio */
+    margin-left: 0; /* Không có khoảng cách bên trái */
+}
+
+/* Submit Button Styles */
+input[type="submit"] {
+    background-color: #4CAF50; /* Màu xanh lá */
+    color: white; /* Màu chữ trắng */
+    padding: 10px 20px; /* Padding cho nút */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    font-size: 16px; /* Kích thước chữ */
+    margin-top: 15px; /* Khoảng cách trên nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049; /* Màu xanh lá đậm hơn khi hover */
+}
+
+/* Back Button Styles */
+a button {
+    background-color: #007bff; /* Màu xanh */
+    color: white; /* Màu chữ trắng */
+    padding: 10px 20px; /* Padding cho nút */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    margin-top: 10px; /* Khoảng cách trên nút Back */
+}
+
+a button:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+}
