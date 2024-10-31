@@ -244,22 +244,42 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
         ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
 
         PreparedStatement stm = null;
-        String sql = "select p.plid, p.plname, p.startdate, p.enddate, d.dname from Plans p\n"
-                + "inner join Departments d on p.did = d.did";
+        String sql = "select p.plid, plname,startdate,enddate,did,pr.pid,pname,quantity,estimatedeffort\n"
+                + "from Plans p join PlanHeaders  h on p.plid=h.plid\n"
+                + "join Products pr on pr.pid=h.pid";
         try {
+
             stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
+            ProductionPlan cPlan = new ProductionPlan();
+            cPlan.setId(-1);
             while (rs.next()) {
-                ProductionPlan pp = new ProductionPlan();
-                pp.setId(rs.getInt("plid"));
-                pp.setName(rs.getNString("plname"));
-                pp.setStart(rs.getDate("startdate"));
-                pp.setEnd(rs.getDate("enddate"));
-                plans.add(pp);
-                
-                Department d = new Department();
-                d.setName(rs.getNString("dname"));
-                pp.setDept(d); // Gán phòng ban cho nhân viên
+                int plid = rs.getInt("plid");
+                if (plid != cPlan.getId()) {
+                    cPlan = new ProductionPlan();
+                    cPlan.setId(plid);
+                    cPlan.setName(rs.getString("plname"));
+                    cPlan.setStart(rs.getDate("startdate"));
+                    cPlan.setEnd(rs.getDate("enddate"));
+                    plans.add(cPlan);
+
+                    Department d = new Department();
+                    d.setId(rs.getInt("did"));
+                    cPlan.setDept(d);
+                    headers = new ArrayList<>();
+
+                }
+
+                Product p = new Product();
+                p.setId(rs.getInt("pid"));
+                p.setName(rs.getString("pname"));
+
+                ProductionPlanHeader h = new ProductionPlanHeader();
+                h.setProduct(p);
+                h.setQuantity(rs.getInt("quantity"));
+                h.setEstimatedeffort(rs.getFloat("estimatedeffort"));
+                headers.add(h);
+                cPlan.setHeaders(headers);
 
             }
         } catch (SQLException ex) {
@@ -278,32 +298,53 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
 
     @Override
     public ProductionPlan get(int id) {
-        ProductionPlan plan = null;
+        PreparedStatement stm = null;
+        String sql = "select p.plid,pname, plname,startdate,enddate,did,h.phid,h.pid,quantity,estimatedeffort\n"
+                + "from Plans p join PlanHeaders h on p.plid=h.plid\n"
+                + "join Products pr on pr.pid=h.pid\n"
+                + "where p.plid=?";
+        ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
+        ProductionPlan cPlan = new ProductionPlan();
         try {
-            String sql_get_plan = "SELECT * FROM [Plans] WHERE [plid] = ?";
-            PreparedStatement stm_get_plan = connection.prepareStatement(sql_get_plan);
-            stm_get_plan.setInt(1, id);
-            ResultSet rs = stm_get_plan.executeQuery();
-            if (rs.next()) {
-                plan = new ProductionPlan();
-                plan.setId(rs.getInt("plid"));
-                plan.setName(rs.getString("plname"));
-                plan.setStart(rs.getDate("startdate"));
-                plan.setEnd(rs.getDate("enddate"));
-                // Populate dept and headers if necessary
-                // plan.setDept(...);
-                // Load headers for this plan if required
+
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+
+            cPlan.setId(-1);
+            while (rs.next()) {
+                int plid = rs.getInt("plid");
+                if (plid != cPlan.getId()) {
+                    cPlan = new ProductionPlan();
+                    cPlan.setId(plid);
+                    cPlan.setName(rs.getString("plname"));
+                    cPlan.setStart(rs.getDate("startdate"));
+                    cPlan.setEnd(rs.getDate("enddate"));
+
+                    Department d = new Department();
+                    d.setId(rs.getInt("did"));
+                    cPlan.setDept(d);
+                    headers = new ArrayList<>();
+
+                }
+
+                Product p = new Product();
+                p.setId(rs.getInt("pid"));
+                p.setName(rs.getString("pname"));
+
+                ProductionPlanHeader h = new ProductionPlanHeader();
+                h.setProduct(p);
+                h.setId(rs.getInt("phid"));
+                h.setQuantity(rs.getInt("quantity"));
+                h.setEstimatedeffort(rs.getFloat("estimatedeffort"));
+                headers.add(h);
+                cPlan.setHeaders(headers);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        return plan;
+        return cPlan;
     }
 
 }
