@@ -3,28 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.productionplan;
+package controller.home;
 
-import controller.auth.BaseRBACController;
-import dal.DepartmentDBContext;
-import dal.ProductDBContext;
-import dal.ProductionPlanDBContext;
+import dal.EmployeeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Department;
-import model.ProductionPlan;
-import model.auth.User;
 
 /**
  *
  * @author lenovo
  */
-public class ProductionPlanListController extends BaseRBACController {
+public class HomeController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,7 +26,7 @@ public class ProductionPlanListController extends BaseRBACController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response, User account)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -41,10 +34,10 @@ public class ProductionPlanListController extends BaseRBACController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductionPlanListController</title>");  
+            out.println("<title>Servlet HomeController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductionPlanListController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet HomeController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,18 +52,18 @@ public class ProductionPlanListController extends BaseRBACController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User account)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ProductionPlanDBContext dbPlan = new ProductionPlanDBContext();
-        ArrayList<ProductionPlan> plans = new ArrayList<>();
-        plans = dbPlan.list();
+        // Get employee count from EmployeeDBContext
+        EmployeeDBContext employeeDB = new EmployeeDBContext();
+        int employeeCount = employeeDB.getEmployeeCount();
 
-        DepartmentDBContext dbDept = new DepartmentDBContext();
-
-        request.setAttribute("plans", plans);
-
-        request.getRequestDispatcher("../view/productionplan/list.jsp").forward(request, response);
-    }
+        // Set the count as a request attribute
+        request.setAttribute("employeeCount", employeeCount);
+        
+        // Forward to the home.jsp
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -80,9 +73,9 @@ public class ProductionPlanListController extends BaseRBACController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doAuthorizedPost(HttpServletRequest request, HttpServletResponse response, User account)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response,account);
+        processRequest(request, response);
     }
 
     /** 
