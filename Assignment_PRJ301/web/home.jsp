@@ -16,7 +16,7 @@
     <body>
         <header class="header">
             <div class="container">
-                <h1>Welcome ${requestScope.username}!</h1>
+                <h1>Welcome, ${account.getUsername()}!</h1>
                 <nav class="navbar">
                     <ul>
                         <li><a href="employee/list">ManageEmployees</a></li>

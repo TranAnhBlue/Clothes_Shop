@@ -7,6 +7,7 @@ package dal;
 import dal.DBContext;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Department;
@@ -18,6 +19,54 @@ import model.Salaries;
  * @author lenovo
  */
 public class EmployeeDBContext extends DBContext<Employee> {
+    
+     public List<Employee> getAvailableEmployees(Date date, int sid, int departmentId) {
+        List<Employee> employees = new ArrayList<>();
+        String sql = "WITH c AS ( \n"
+                + "    SELECT e.eid, e.ename, COALESCE(COUNT(s.sid), 0) AS shift_count \n"
+                + "    FROM Employees e \n"
+                + "    LEFT JOIN WorkAssignments w ON e.eid = w.eid \n"
+                + "    LEFT JOIN PlanDetails pd ON w.pdid = pd.pdid AND pd.date = ? \n"
+                + "    LEFT JOIN Shifts s ON s.sid = pd.sid \n"
+                + "    WHERE e.did = ? \n"
+                + "    GROUP BY e.eid, e.ename \n"
+                + "    HAVING COUNT(s.sid) < 2 \n"
+                + "), t AS ( \n"
+                + "    SELECT wa.eid \n"
+                + "    FROM WorkAssignments wa \n"
+                + "    JOIN PlanDetails pd ON wa.pdid = pd.pdid \n"
+                + "    WHERE pd.date = ? \n"
+                + "      AND pd.sid = ? \n"
+                + ") \n"
+                + "SELECT e.eid, e.ename, e.phonenumber, e.address, e.dob, e.sid \n"
+                + "FROM Employees e \n"
+                + "WHERE e.did = ? \n"
+                + "  AND e.eid NOT IN (SELECT eid FROM t) \n"
+                + "  AND e.eid IN (SELECT eid FROM c);";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setDate(1, date);              // For CTE c
+            ps.setInt(2, departmentId);       // For CTE c
+            ps.setDate(3, date);              // For CTE t
+            ps.setInt(4, sid);                // For CTE t
+            ps.setInt(5, departmentId);       // For final selection
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Employee e = new Employee();
+                e.setId(rs.getInt("eid"));
+                e.setName(rs.getString("ename"));
+                e.setGender(rs.getBoolean("gender")); // Đọc giá trị giới tính
+                e.setAddress(rs.getString("address"));
+                e.setDob(rs.getDate("dob"));
+                e.setPhonenumber(rs.getNString("phonenumber")); // Đọc số điện thoại
+                employees.add(e);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return employees;
+    }
 
     public ArrayList<Employee> search(Integer eid, String name, Boolean gender, Date from, Date to, String address, Integer did, String phonenumber, Integer sid) {
         String sql = "SELECT e.eid, e.ename, d.did, d.dname, e.phonenumber, e.address, s.sid, s.slevel, s.salary, e.gender, e.dob\n"
@@ -128,6 +177,8 @@ public class EmployeeDBContext extends DBContext<Employee> {
 
         return emps;
     }
+    
+    
 
     public void insert(Employee model) {
         try {

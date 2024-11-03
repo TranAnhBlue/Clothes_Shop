@@ -1,32 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.sql.Date;
 
-/**
- *
- * @author lenovo
- */
 public class Attendance {
-    private Employee eid;
-    private int actualQuantity;
-    private BigDecimal anpha;
-    private String note;
 
-    // Getter và Setter cho các thuộc tính
+    private int atid; // Attendance ID
+    private int actualQuantity; // Actual quantity worked by the employee
+    private float alpha; // Effort multiplier
+    private String note; // Additional notes
+    private WorkAssignment workAssignment; // Reference to WorkAssignment object
+    private Date date; // Date from PlanDetails
 
-    public Employee getEid() {
-        return eid;
+    public Date getDate() {
+        return date;
     }
 
-    public void setEid(Employee eid) {
-        this.eid = eid;
+    public void setDate(Date date) {
+        this.date = date;
     }
-        
+
+    // Getters and Setters
+    public int getAtid() {
+        return atid;
+    }
+
+    public void setAtid(int atid) {
+        this.atid = atid;
+    }
+
     public int getActualQuantity() {
         return actualQuantity;
     }
@@ -35,12 +36,12 @@ public class Attendance {
         this.actualQuantity = actualQuantity;
     }
 
-    public BigDecimal getAnpha() {
-        return anpha;
+    public float getAlpha() {
+        return alpha;
     }
 
-    public void setAnpha(BigDecimal anpha) {
-        this.anpha = anpha;
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 
     public String getNote() {
@@ -50,4 +51,13 @@ public class Attendance {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public WorkAssignment getWorkAssignment() {
+        return workAssignment;
+    }
+
+    public void setWorkAssignment(WorkAssignment workAssignment) {
+        this.workAssignment = workAssignment;
+    }
+
 }

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ProductionPlan;
 import java.sql.*;
+import java.util.List;
 import model.Department;
 import model.Product;
 import model.ProductionPlanHeader;
@@ -21,6 +22,66 @@ import model.ProductionPlanHeader;
  */
 public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
 
+    public List<ProductionPlan> getPlans(String name, String month, String year, String deptId) {
+        List<ProductionPlan> plans = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(
+                "SELECT p.plid, p.plname, p.startdate, p.enddate, d.did, d.dname\n"
+                + "FROM Plans p\n"
+                + "JOIN Departments d ON p.did = d.did\n"
+                + "WHERE p.isDeleted = 0"
+        );
+
+        // Build query dynamically based on filter parameters
+        if (name != null && !name.isEmpty()) {
+            sql.append(" AND p.plname LIKE ?");
+        }
+        if (month != null && !month.isEmpty() && year != null && !year.isEmpty()) {
+            sql.append(" AND MONTH(p.startdate) = ? AND YEAR(p.startdate) = ?");
+        } else if (year != null && !year.isEmpty()) {
+            sql.append(" AND YEAR(p.startdate) = ?");
+        }
+        if (deptId != null && !deptId.isEmpty()) {
+            sql.append(" AND d.did = ?");
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(sql.toString())) {
+            int index = 1;
+            if (name != null && !name.isEmpty()) {
+                ps.setString(index++, "%" + name + "%");
+            }
+            if (month != null && !month.isEmpty() && year != null && !year.isEmpty()) {
+                ps.setInt(index++, Integer.parseInt(month));
+                ps.setInt(index++, Integer.parseInt(year));
+            } else if (year != null && !year.isEmpty()) {
+                ps.setInt(index++, Integer.parseInt(year));
+            }
+            if (deptId != null && !deptId.isEmpty()) {
+                ps.setString(index++, deptId);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductionPlan plan = new ProductionPlan();
+                plan.setId(rs.getInt("plid"));
+                plan.setName(rs.getString("plname"));
+                plan.setStart(rs.getDate("startdate"));
+                plan.setEnd(rs.getDate("enddate"));
+
+                // Set the associated department
+                Department dept = new Department();
+                dept.setId(rs.getInt("did"));
+                dept.setName(rs.getString("dname"));
+                plan.setDept(dept);
+
+                plans.add(plan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider proper logging here
+        }
+
+        return plans;
+    }
+    
     public ArrayList<ProductionPlan> search(Integer plid, String plname, Date start, Date end, Integer did) {
         String sql = "select p.plid, p.plname, p.startdate, p.enddate, d.dname from Plans p\n"
                 + "inner join Departments d on d.did = p.did\n"
@@ -345,6 +406,42 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
             Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cPlan;
+    }
+    
+    public List<ProductionPlanHeader> getHeadersByPlanId(int planId) {
+        List<ProductionPlanHeader> headers = new ArrayList<>();
+        String sql = "SELECT ph.phid, ph.plid, ph.pid, ph.quantity, ph.estimatedeffort, "
+                + "p.pname AS product_name "
+                + "FROM PlanHeaders ph "
+                + "JOIN Products p ON ph.pid = p.pid "
+                + "WHERE ph.plid = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, planId); // Set the planId to the query
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductionPlanHeader header = new ProductionPlanHeader();
+                header.setId(rs.getInt("phid")); // Set phid
+                // header.getPlan().setId(rs.getInt("plid")); // Set plid
+                header.setQuantity(rs.getInt("quantity")); // Set quantity
+                header.setEstimatedeffort(rs.getFloat("estimatedeffort")); // Set estimatedeffort
+
+                // Set associated product
+                Product product = new Product();
+                product.setId(rs.getInt("pid")); // Set product id (pid)
+                product.setName(rs.getString("product_name")); // Set product name (pname)
+                header.setProduct(product); // Link product to the header
+
+                headers.add(header); // Add to headers list
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return headers;
     }
 
 }
