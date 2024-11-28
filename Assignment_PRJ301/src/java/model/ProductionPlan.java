@@ -17,6 +17,15 @@ public class ProductionPlan {
     private Date end;
     private Department dept;
     private ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
+    private ArrayList<ProductionPlanDetail> details = new ArrayList<>();
+
+    public ArrayList<ProductionPlanDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(ArrayList<ProductionPlanDetail> details) {
+        this.details = details;
+    }
 
     public ArrayList<ProductionPlanHeader> getHeaders() {
         return headers;

@@ -20,7 +20,7 @@
                     var value = $(this).text();
 
                     $.ajax({
-                        url: '/employee/update',
+                        url: '/employee/list',
                         type: 'POST',
                         data: {
                             id: id,
@@ -48,11 +48,45 @@
             function confirmUpdate(id) {
                 var result = confirm("Are you sure you want to update this employee?");
                 if (result) {
-                    document.getElementById("updateForm" + id).submit();
+                    var name = $('#name_' + id).val();
+                    var gender = $('input[name="gender_' + id + '"]:checked').val();
+                    var dob = $('#dob_' + id).val();
+                    var phonenumber = $('#phonenumber_' + id).val();
+                    var address = $('#address_' + id).val();
+                    var salary = $('#sid_' + id).val();
+                    var dept = $('#did_' + id).val();
+
+                    $.ajax({
+                        url: '/employee/list',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            name: name,
+                            gender: gender,
+                            dob: dob,
+                            phonenumber: phonenumber,
+                            address: address,
+                            salary: salary,
+                            dept: dept
+                        },
+                        success: function (response) {
+                            alert("Employee updated successfully!");
+                        },
+                        error: function (error) {
+                            alert("Error updating employee");
+                            console.log(error);
+                        }
+                    });
                 }
             }
-
             function updateEmployee(id, field, value) {
+                // Validate input
+                if (!id || !field || value === undefined || value === null) {
+                    alert("Invalid input. Please provide all necessary information.");
+                    return;
+                }
+
+                // Send AJAX request
                 $.ajax({
                     url: '/employee/update', // Đảm bảo URL này trỏ đến đúng servlet
                     type: 'POST',

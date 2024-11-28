@@ -21,6 +21,12 @@ import model.ProductionPlanHeader;
  * @author lenovo
  */
 public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
+    
+//    public static void main(String[] args) {
+//        ProductionPlanDBContext dbContext = new ProductionPlanDBContext();
+//        int count = dbContext.list();
+//        System.out.println("Total ProductionPlans: " + count);
+//    }
 
     public List<ProductionPlan> getPlans(String name, String month, String year, String deptId) {
         List<ProductionPlan> plans = new ArrayList<>();

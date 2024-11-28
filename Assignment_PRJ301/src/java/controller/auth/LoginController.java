@@ -24,27 +24,23 @@ public class LoginController extends HttpServlet {
         String param_user = req.getParameter("username");//user input
         String param_pass = req.getParameter("password");
         String mess = "";
-        
+
         UserDBContext db = new UserDBContext();
         model.auth.User account = db.get(param_user, param_pass);
-        
-        
-        if(account != null)
-        {
-            resp.getWriter().println("login successful!");
+
+        if (account != null) {
+//            resp.getWriter().println("login successful!");
             req.getSession().setAttribute("account", account);
             req.getRequestDispatcher("home.jsp").forward(req, resp);
-        }
-        else
-        {
+        } else {
 //            resp.getWriter().println("login failed!");
+            mess = "Wrong username or password!";
+            req.setAttribute("mess", mess); // Pass error message to the JSP
             req.getRequestDispatcher("login.jsp").forward(req, resp);
-            req.getSession().setAttribute("Wrong username or password!", mess);
         }
-        
-        String url = this.getInitParameter("url");
-        resp.getWriter().println(url);
-        
+
+//        String url = this.getInitParameter("url");
+//        resp.getWriter().println(url);
     }
 
     @Override

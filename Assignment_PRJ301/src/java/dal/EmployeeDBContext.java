@@ -19,7 +19,7 @@ import model.Salaries;
  * @author lenovo
  */
 public class EmployeeDBContext extends DBContext<Employee> {
-    
+
      public List<Employee> getAvailableEmployees(Date date, int sid, int departmentId) {
         List<Employee> employees = new ArrayList<>();
         String sql = "WITH c AS ( \n"
@@ -177,8 +177,6 @@ public class EmployeeDBContext extends DBContext<Employee> {
 
         return emps;
     }
-    
-    
 
     public void insert(Employee model) {
         try {
@@ -382,16 +380,23 @@ public class EmployeeDBContext extends DBContext<Employee> {
     // Phương thức đếm tổng số nhân viên
     public int getEmployeeCount() {
         int count = 0;
-        String sql = "SELECT COUNT(*) FROM Employees";  // Replace 'Employees' with your actual table name
-        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
+        String sql = "SELECT COUNT(*) FROM Employees"; // Replace 'Employees' with your actual table name
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
         } catch (SQLException e) {
-            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, "Error retrieving employee count", e);
         }
         return count;
+    }
+
+
+    public static void main(String[] args) {
+        EmployeeDBContext dbContext = new EmployeeDBContext();
+        int count = dbContext.getEmployeeCount();
+        System.out.println("Total Employees: " + count);
     }
 
     @Override

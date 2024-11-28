@@ -27,7 +27,7 @@
 
             End Date: <input type="date" name="enddate" value="${requestScope.plan.end}" required/> <br/>
 
-            Department: <select name="did" required\>
+            Workshop: <select name="did" required\>
                 <c:forEach items="${requestScope.depts}" var="d">
                     <option 
                         ${requestScope.plan.dept.id eq d.id?"selected=\"selected\"":""}

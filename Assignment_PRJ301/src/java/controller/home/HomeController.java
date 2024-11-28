@@ -12,6 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Employee;
 
 /**
  *
@@ -57,7 +59,7 @@ public class HomeController extends HttpServlet {
         // Get employee count from EmployeeDBContext
         EmployeeDBContext employeeDB = new EmployeeDBContext();
         int employeeCount = employeeDB.getEmployeeCount();
-
+        
         // Set the count as a request attribute
         request.setAttribute("employeeCount", employeeCount);
         

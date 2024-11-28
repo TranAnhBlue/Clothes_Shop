@@ -20,7 +20,7 @@
 
             Dob: <input type="date" name="dob" value="${requestScope.e.dob}" required> <br/>
             Address: <input type="text" name="address" value="${requestScope.e.address}" required> <br/>
-            Phonenumber: <input type="text" name="phonenumber" value="${requestScope.e.phonenumber}" required><br/>
+            Phone number: <input type="text" name="phonenumber" value="${requestScope.e.phonenumber}" required><br/>
 
             Salary: 
             <select name="sid" required>
