@@ -23,6 +23,7 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String param_user = req.getParameter("username");//user input
         String param_pass = req.getParameter("password");
+        String mess = "";
         
         UserDBContext db = new UserDBContext();
         model.auth.User account = db.get(param_user, param_pass);
@@ -36,7 +37,9 @@ public class LoginController extends HttpServlet {
         }
         else
         {
-            resp.getWriter().println("login failed!");
+//            resp.getWriter().println("login failed!");
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getSession().setAttribute("Wrong username or password!", mess);
         }
         
         String url = this.getInitParameter("url");

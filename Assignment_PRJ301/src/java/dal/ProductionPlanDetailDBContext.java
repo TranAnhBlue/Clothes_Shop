@@ -130,8 +130,8 @@ public class ProductionPlanDetailDBContext extends DBContext<ProductionPlanDetai
 
                 // Set the associated product
                 Product product = new Product();
-                product.setId(rs.getInt("product_id")); // Set product ID
-                product.setName(rs.getString("product_name")); // Set product name
+                product.setId(rs.getInt("id")); // Set product ID
+                product.setName(rs.getString("name")); // Set product name
                 detail.setProduct(product);
 
                 details.add(detail); // Add the detail to the list

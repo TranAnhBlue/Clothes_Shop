@@ -36,16 +36,16 @@
                 <div class="dashboard-summary">
                     <div class="summary-item">
                         <h3>Total Employees</h3>
-                        <p>29</p>
+                        <a href="employee/list">29</a>
 <!--                        <p>${employeeCount}</p>-->
                     </div>
                     <div class="summary-item">
                         <h3>Active Production Plans</h3>
-                        <p>9</p>
+                        <a href="productionplan/list">9</a>
                     </div>
                     <div class="summary-item">
                         <h3>Shifts Today</h3>
-                        <p>3</p>
+                        <a href="shift/list">3</a>
                     </div>
                 </div>
 

@@ -4,12 +4,10 @@
  */
 package controller.productionplan;
 
-import dal.ProductDBContext;
 import dal.ProductionPlanDBContext;
 import dal.ProductionPlanDetailDBContext;
 import dal.ShiftDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ProductionPlan;
 import java.sql.Date;
 import java.util.ArrayList;
-import model.Product;
 import model.ProductionPlanDetail;
 import model.ProductionPlanHeader;
 import model.Shift;
@@ -42,23 +39,20 @@ public class ProductionPlanDetailController extends HttpServlet {
         
         while(!start.after(end)){
             datePlan.add(start);
-            start=new Date(milisecondsinDay+start.getTime());
+            start = new Date(milisecondsinDay+start.getTime());
         }
        
         ArrayList<Shift> shifts= new ArrayList<>();
         ShiftDBContext dbShift= new ShiftDBContext();
-        shifts= dbShift.list();
+        shifts = dbShift.list();
         
         ArrayList<ProductionPlanDetail> details = new ArrayList<>();
         ProductionPlanDetailDBContext dbDetail = new ProductionPlanDetailDBContext();
-        details= dbDetail.list();
-        
-        
-        
+        details = dbDetail.list();
+               
         request.setAttribute("details", details);
         request.setAttribute("shifts", shifts);
         request.setAttribute("datePlan", datePlan);
-        
         request.setAttribute("plan", plan);
         request.getRequestDispatcher("../view/productionplan/listdetail.jsp").forward(request, response);
     }
@@ -67,8 +61,8 @@ public class ProductionPlanDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String[] dates= request.getParameterValues("date");
-        ProductionPlanDetailDBContext dbDetail=new ProductionPlanDetailDBContext();
+        String[] dates = request.getParameterValues("date");
+        ProductionPlanDetailDBContext dbDetail = new ProductionPlanDetailDBContext();
         for(String d: dates){
             
             String[] hids= request.getParameterValues("hid"+d);
@@ -85,14 +79,12 @@ public class ProductionPlanDetailController extends HttpServlet {
                         int sid=Integer.parseInt(s);
                         int quantity= Integer.parseInt(raw_quantity);
                         detail.setSid(sid);
-                        ProductionPlanHeader header= new ProductionPlanHeader();
+                        ProductionPlanHeader header = new ProductionPlanHeader();
                         header.setId(hid);
                         detail.setHeader(header);
                         detail.setDate(date);
                         detail.setQuantity(quantity);
-                        dbDetail.insert(detail);
-                        
-                       
+                        dbDetail.insert(detail);       
                         
                     }
                    
