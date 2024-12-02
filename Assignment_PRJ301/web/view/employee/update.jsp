@@ -8,7 +8,7 @@
         <jsp:include page="../master/shortprofile.jsp"></jsp:include>
             <h2>Update Employee</h2>
             
-            <form action="update" method="POST">
+            <form action="update" method="GET">
                 Id: ${requestScope.e.id} <br/>
             <input type="hidden" name="id" value="${requestScope.e.id}"/>
 

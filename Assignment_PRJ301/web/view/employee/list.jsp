@@ -258,6 +258,10 @@
             .gender-container input[type="radio"] {
                 margin-right: 5px; /* Adds space between radio button and label */
             }
+            .employeeForm{
+                width: 100%;
+                height: 100%;
+            }
         </style>
     </head>
     <body>
@@ -265,7 +269,7 @@
 
         <jsp:include page="../master/shortprofile.jsp"></jsp:include>
             <h3><a href="create">Create Employee</a></h3>
-            <form id="employeeForm">
+            <form class="employeeForm" id="employeeForm">
                 <table border="1" cellpadding="5" cellspacing="0" style="text-align: center" id="employeeTable">
                     <thead>
                         <tr>
