@@ -48,7 +48,7 @@
                         <a href="shift/list">3</a>
                     </div>
                 </div>
-                <h3>ATTENDANCE EMPLOYEE:</h3>    
+                <h3>ATTENDANCE:</h3>    
                 <a href="view/attendance/attendance-dashboard.jsp">Attendance</a> 
                 <h3>IF YOU ARE A CUSTOMER:</h3>
                 <a href="product/list">Shopping here</a>

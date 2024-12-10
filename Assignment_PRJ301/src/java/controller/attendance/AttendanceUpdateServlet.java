@@ -18,7 +18,7 @@ import model.auth.User;
 
 /**
  *
- * @author Golden Lightning
+ * @author lenovo
  */
 public class AttendanceUpdateServlet extends BaseRBACController {
 
