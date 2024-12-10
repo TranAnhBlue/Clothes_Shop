@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Create new account</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            table {
+                width: 100%;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            td {
+                padding: 10px;
+                vertical-align: top;
+            }
+            input[type="text"],
+            input[type="password"],
+            input[type="email"] {
+                width: calc(100% - 22px);
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
+            input[type="submit"],
+            input[type="reset"] {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                background-color: #28a745;
+                color: white;
+                cursor: pointer;
+                font-size: 16px;
+                margin: 5px;
+            }
+            input[type="submit"]:hover,
+            input[type="reset"]:hover {
+                background-color: #218838;
+            }
+            input[type="reset"] {
+                background-color: #dc3545;
+            }
+            input[type="reset"]:hover {
+                background-color: #c82333;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Create new account: </h1>
+        <form action="DispatchController" method="POST">
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="txtUsername" value="" required> (6 - 20 characters)</td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="textPassword" value="" required> (6 - 30 characters)</td>
+                </tr>
+                <tr>
+                    <td>Confirm password: </td>
+                    <td><input type="password" name="txtConfirm" value="" required></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="email" name="txtEmail" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Create new account" name="btAction" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="reset" value="Reset" /></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

@@ -11,8 +11,18 @@ package model;
 public class Product {
     private int id;
     private String name;
+    private double price;
     private String description;
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    
     public String getDescription() {
         return description;
     }

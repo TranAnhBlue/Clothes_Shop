@@ -15,7 +15,7 @@ import model.auth.User;
 
 /**
  *
- * @author
+ * @author lenovo
  */
 public class LoginController extends HttpServlet {
 

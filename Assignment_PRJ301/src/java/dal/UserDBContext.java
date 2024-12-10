@@ -105,7 +105,71 @@ public class UserDBContext extends DBContext<User> {
 
     @Override
     public void insert(User model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stm = null;
+        try {
+            String sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, model.getUsername());
+            stm.setString(2, model.getPassword());
+            stm.setString(3, model.getEmail());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public boolean insertRecord(String username, String password, String email) {
+    PreparedStatement stm = null;
+    try {
+        String sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
+        stm = connection.prepareStatement(sql);
+        stm.setString(1, username);
+        stm.setString(2, password);
+        stm.setString(3, email);
+
+        // Execute the insert operation and return true if successful
+        int rowsAffected = stm.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException ex) {
+        Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, "Insert failed", ex);
+        return false;
+        } finally {
+            try {
+                if (stm != null) stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+     
+    // validate email if exist
+    public boolean isEmailExists(String email){
+        PreparedStatement stm = null;
+        try{
+            String sql = "SELECT email FROM Users WHERE email = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            
+        }
+        catch(SQLException ex){
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try{
+                if(stm != null) stm.close();
+            }
+            catch(SQLException ex){
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
 
     @Override

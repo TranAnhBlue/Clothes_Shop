@@ -37,6 +37,7 @@ public class ProductDBContext extends DBContext<Product> {
         String sql = "SELECT [pid]\n"
                 + "      ,[pname]\n"
                 + "      ,[description]\n"
+                + "      ,[price]\n"
                 + "  FROM [Products]";
         ArrayList<Product> products = new ArrayList<>();
         PreparedStatement stm = null;
@@ -48,6 +49,7 @@ public class ProductDBContext extends DBContext<Product> {
                 Product p = new Product();
                 p.setId(rs.getInt("pid"));
                 p.setName(rs.getString("pname"));
+                p.setPrice(rs.getDouble("price"));
                 p.setDescription(rs.getString("description"));
                 products.add(p);
             }

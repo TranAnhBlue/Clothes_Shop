@@ -43,6 +43,10 @@
 
       </div> 
 
+      <div class="links"> <a href="#">Forgot Password?</a> <a href="createNewAccount.html"> Sign up</a> 
+
+      </div> 
+
       <div class="inputBox"> 
           
        <input type="submit" value="Login"> 

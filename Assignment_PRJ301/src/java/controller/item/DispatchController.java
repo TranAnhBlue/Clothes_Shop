@@ -20,11 +20,12 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name="DispatchController", urlPatterns={"/DispatchController"})
 public class DispatchController extends HttpServlet {
-    private final String LOGIN_PAGE = "LoginController";
+    private final String LOGIN_PAGE = "login.jsp";
     private final String NULL_CONTROLLER = "NullServlet";
     private final String ADD_ITEM_CONTROLLER = "AddItemServlet";
     private final String VIEW_ITEM_PAGE = "viewCart.jsp";
     private final String DELETE_ITEM_CONTROLLER = "DeleteItemServlet";
+    private final String CREATE_NEW_ACCOUNT = "CreateNewAccount";
     /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +46,7 @@ public class DispatchController extends HttpServlet {
             if(button == null){
                 url = NULL_CONTROLLER;        
             }
-            else if (button.equals("Add book to your Cart")){
+            else if (button.equals("Add product to your Cart")){
                 url = ADD_ITEM_CONTROLLER;
             }
             else if (button.equals("View your Cart")){
@@ -53,6 +54,9 @@ public class DispatchController extends HttpServlet {
             }
             else if (button.equals("Remove selected Items")){
                 url = DELETE_ITEM_CONTROLLER;
+            }
+            else if (button.equals("Create new Account")){
+                url = CREATE_NEW_ACCOUNT;
             }
         }
         finally{

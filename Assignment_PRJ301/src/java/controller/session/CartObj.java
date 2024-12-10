@@ -12,11 +12,11 @@ import java.util.Map;
  *
  * @author lenovo
  */
-public class CartObj implements Serializable{
+public class CartObj implements Serializable {
+
     private String CustomerId;
     private Map<String, Integer> items;
 
-    
     public String getCustomerId() {
         return CustomerId;
     }
@@ -28,23 +28,23 @@ public class CartObj implements Serializable{
     public Map<String, Integer> getItems() {
         return items;
     }
-    
-    public void addItemToCart(String title){
-        if(items == null){
-            items = new HashMap<String,Integer>();
+
+    public void addItemToCart(String title) {
+        if (items == null) {
+            items = new HashMap<String, Integer>();
         }
-        int quantity = 1;
-        if(items.containsKey(title)){
-            quantity = items.get(title) + 1;
+            int quantity = 1;
+            if (items.containsKey(title)) {
+                quantity = items.get(title) + 1;
+            }
+            items.put(title, quantity);
         }
-        items.put(title, quantity);
-    }
-    
-    public void removeItemFromCart(String title){
-        if(items.containsKey(title)){
+
+    public void removeItemFromCart(String title) {
+        if (items.containsKey(title)) {
             items.remove(title);
         }
-        if(items.size() == 0){
+        if (items.size() == 0) {
             items = null;
         }
     }

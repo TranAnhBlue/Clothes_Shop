@@ -48,9 +48,10 @@
                         <a href="shift/list">3</a>
                     </div>
                 </div>
-
-                <p>Select a section from the menu above to manage the system.</p>
-
+                <h3>ATTENDANCE EMPLOYEE:</h3>    
+                <a href="view/attendance/attendance-dashboard.jsp">Attendance</a> 
+                <h3>IF YOU ARE A CUSTOMER:</h3>
+                <a href="product/list">Shopping here</a>
             </div>
         </main>
         <footer class="footer">
