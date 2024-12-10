@@ -28,17 +28,21 @@ public class EmployeeUpdateController extends BaseRBACController {
 
     @Override
     protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User account) throws ServletException, IOException {
-        // Đọc các tham số từ yêu cầu
         String idParam = req.getParameter("id");
         String field = req.getParameter("field");
         String value = req.getParameter("value");
 
         try {
-            int id = Integer.parseInt(idParam);  // Chuyển đổi id sang kiểu int
+            int id = Integer.parseInt(idParam);
             EmployeeDBContext db = new EmployeeDBContext();
-            Employee employee = db.get(id);  // Lấy thông tin nhân viên từ DB
+            Employee employee = db.get(id);
 
-            // Kiểm tra và cập nhật trường cụ thể
+            if (employee == null) {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter().write("Employee not found");
+                return;
+            }
+
             switch (field) {
                 case "name":
                     employee.setName(value);
@@ -67,19 +71,16 @@ public class EmployeeUpdateController extends BaseRBACController {
                     return;
             }
 
-            // Cập nhật thông tin nhân viên trong DB
             db.update(employee);
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write("Update successful");
- 
 
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Error: " + e.getMessage());
+            resp.getWriter().write("Error updating employee");
             e.printStackTrace();
         }
     }
-
 
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -121,9 +122,8 @@ public class EmployeeUpdateController extends BaseRBACController {
 //        // Gửi phản hồi thành công
 //        resp.sendRedirect("../employee/list");
 //    }
-
-@Override
-protected void doAuthorizedGet(HttpServletRequest req, HttpServletResponse resp, User account) throws ServletException, IOException {
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest req, HttpServletResponse resp, User account) throws ServletException, IOException {
         // Get the 'eid' parameter from the request
         int id = Integer.parseInt(req.getParameter("eid"));
 

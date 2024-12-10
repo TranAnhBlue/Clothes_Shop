@@ -18,7 +18,7 @@
         <h2>Filter Production Plan</h2>
         <form action="filter" method="GET">
             <table border="1" cellpadding="5" cellspacing="0" style="text-align: center">
-            Id: <input type="text" name="id" value="${param.id ne null ? param.id : p.id}"/> <br/>
+            ID: <input type="text" name="id" value="${param.id ne null ? param.id : p.id}"/> <br/>
             Name: <input type="text" name="name" value="${param.name ne null ? param.plname : p.plname}"/><br/>
             Start date: <input type="date" name="start" value="${param.start}"/> - End date: <input type="date" name="end" value="${param   .end}"/> <br/>
             Department: 
@@ -34,7 +34,7 @@
         </form>
         <table border="1" cellpadding="5" cellspacing="0" style="text-align: center">
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Start Time</th>
                 <th>End Time</th>

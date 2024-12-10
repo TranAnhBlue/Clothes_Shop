@@ -3,25 +3,43 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
+
 <html>
     <head>
         <title>Product Store</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/productStore.css"/>
+        <script>
+            // Khi trang được tải lại, gán giá trị đã lưu vào select
+            window.onload = function () {
+                const storedProduct = localStorage.getItem('selectedProduct');
+                if (storedProduct) {
+                    document.querySelector('select[name="cboProduct"]').value = storedProduct;
+                }
+            };
+
+            // Lưu sản phẩm được chọn vào localStorage
+            function storeSelectedProduct() {
+                const productSelect = document.querySelector('select[name="cboProduct"]');
+                const selectedProduct = productSelect.value;
+                localStorage.setItem('selectedProduct', selectedProduct);
+            }
+        </script>
     </head>
     <body>
         <h1>Product Store</h1>
-        <form action="DispatchController">
+        <form action="DispatchController" onsubmit="storeSelectedProduct();">
             Choose Product:
-            <select name="cboProduct">
-                <option>Product A</option>
-                <option>Product B</option>
-                <option>Product C</option>
+            <select name="cboProduct" onchange="storeSelectedProduct()">
+                <option value="Product A">Product A</option>
+                <option value="Product B">Product B</option>
+                <option value="Product C">Product C</option>
             </select>
             <input type="submit" value="Add product to your Cart" name="btAction" />
             <input type="submit" value="View your Cart" name="btAction" />
         </form>
     </body>
 </html>
+
 

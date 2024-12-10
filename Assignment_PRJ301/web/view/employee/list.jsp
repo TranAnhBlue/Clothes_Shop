@@ -10,139 +10,35 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>List Employee</title>
+        <title>Employee List</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.editable').on('blur', function () {
-                    var field = $(this).data('field');
-                    var id = $(this).data('id');
-                    var value = $(this).text();
-
-                    $.ajax({
-                        url: '/employee/list',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            field: field,
-                            value: value
-                        },
-                        success: function (response) {
-                            console.log(response); // Cập nhật thành công
-                        },
-                        error: function (xhr) {
-                            alert('Error: ' + xhr.responseText); // Lỗi cập nhật
-                        }
-                    });
-                });
-            });
-            function removeEmployees(id)
-            {
-                var result = confirm("Are you sure?");
-                if (result)
-                {
-                    document.getElementById("formRemove" + id).submit();
-                }
-            }
-
+            // Update Employee Function
             function confirmUpdate(id) {
-                var result = confirm("Are you sure you want to update this employee?");
-                if (result) {
-                    var name = $('#name_' + id).val();
-                    var gender = $('input[name="gender_' + id + '"]:checked').val();
-                    var dob = $('#dob_' + id).val();
-                    var phonenumber = $('#phonenumber_' + id).val();
-                    var address = $('#address_' + id).val();
-                    var salary = $('#sid_' + id).val();
-                    var dept = $('#did_' + id).val();
+                if (confirm("Are you sure you want to update this employee?")) {
+                    const formData = {
+                        id: id,
+                        name: $(`#name_${id}`).val(),
+                        gender: $(`input[name="gender_${id}"]:checked`).val(),
+                        dob: $(`#dob_${id}`).val(),
+                        phonenumber: $(`#phonenumber_${id}`).val(),
+                        address: $(`#address_${id}`).val(),
+                        salary: $(`#sid_${id}`).val(),
+                        dept: $(`#did_${id}`).val()
+                    };
 
-                    $.ajax({
-                        url: '/employee/list',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            name: name,
-                            gender: gender,
-                            dob: dob,
-                            phonenumber: phonenumber,
-                            address: address,
-                            salary: salary,
-                            dept: dept
-                        },
-                        success: function (response) {
-                            alert("Employee updated successfully!");
-                        },
-                        error: function (error) {
-                            alert("Error updating employee");
-                            console.log(error);
-                        }
+                    $.post('/employee/update', formData, function (response) {
+                        alert("Employee updated successfully!");
+                    }).fail(function (error) {
+                        alert("Error updating employee: " + error.responseText);
                     });
                 }
             }
-            function updateEmployee(id, field, value) {
-                // Validate input
-                if (!id || !field || value === undefined || value === null) {
-                    alert("Invalid input. Please provide all necessary information.");
-                    return;
+
+            function removeEmployees(id) {
+                if (confirm("Are you sure you want to remove this employee?")) {
+                    $(`#formRemove${id}`).submit();
                 }
-
-                // Send AJAX request
-                $.ajax({
-                    url: '/employee/update', // Đảm bảo URL này trỏ đến đúng servlet
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        field: field,
-                        value: value
-                    },
-                    success: function (response) {
-                        alert("Employee updated successfully!");
-                    },
-                    error: function (error) {
-                        alert("Error updating employee");
-                        console.log(error);
-                    }
-                });
-            }
-
-            // Ví dụ cách gọi hàm updateEmployee từ một ô nhập liệu
-            $('#name_' + id).on('change', function () {
-                var name = $(this).val();
-                updateEmployee(id, 'name', name);
-            });
-
-            function saveEmployee(id) {
-                // Thu thập dữ liệu từ dòng tương ứng
-                var name = document.getElementById("name_" + id).value;
-                var gender = document.querySelector('input[name="gender_' + id + '"]:checked').value;
-                var dob = document.getElementById("dob_" + id).value;
-                var phonenumber = document.getElementById("phonenumber_" + id).value;
-                var address = document.getElementById("address_" + id).value;
-                var sid = document.getElementById("sid_" + id).value;
-                var did = document.getElementById("did_" + id).value;
-
-                // Gửi dữ liệu bằng AJAX
-                $.ajax({
-                    url: '/employee/update', // URL của servlet xử lý
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        name: name,
-                        gender: gender,
-                        dob: dob,
-                        phonenumber: phonenumber,
-                        address: address,
-                        sid: sid,
-                        did: did
-                    },
-                    success: function (response) {
-                        alert("Employee updated successfully!");
-                    },
-                    error: function (error) {
-                        alert("Error updating employee");
-                        console.log(error);
-                    }
-                });
             }
         </script>
         <style>
@@ -313,10 +209,11 @@
                             <td>
                                 <input type="text" id="did_${e.id}" value="${e.dept.name}" required/>
                             </td>
-                            <td>
+                            <td>    
                                 <button type="button" onclick="confirmUpdate(${e.id})" style="background-color: green; color: white;">Update</button>
-                                <input type="button" value="Remove" onclick="removeEmployees(${e.id})" style="background-color: red; color: white"/>
-                                <form id="formRemove${e.id}" action="delete" method="POST"> 
+                                <button type="button" onclick="removeEmployees(${e.id})" style="background-color: red; color: white;">Remove</button>
+                                <!-- Form for Deletion -->
+                                <form id="formRemoveEmployees${e.id}" action="delete" method="POST">
                                     <input type="hidden" name="id" value="${e.id}"/>
                                 </form>
                             </td>

@@ -66,7 +66,7 @@ public class EmployeeFilterController extends BaseRBACController {
         Integer did = (raw_did != null) && (!raw_did.equals("-1"))
                 ? Integer.parseInt(raw_did) : null;
         String phonenumber = raw_phonenumber;
-        Integer sid = (raw_sid != null) && (!raw_sid.isBlank())
+        Integer sid = (raw_sid != null) && (!raw_sid.equals("-1"))
                 ? Integer.parseInt(raw_sid) : null;
 
         EmployeeDBContext dbEmp = new EmployeeDBContext();

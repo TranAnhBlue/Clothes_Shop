@@ -24,9 +24,6 @@ public class Employee {
     private Salaries sals;
     private Shift shift;
 
-   
-    
-
     public Boolean getGender() {
         return gender;
     }

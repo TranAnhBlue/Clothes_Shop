@@ -18,7 +18,7 @@
         <h2>Filter Employee</h2>
         <form action="filter" method="GET"> 
             <table border="1" cellpadding="5" cellspacing="0" style="text-align: center">
-                Id: <input type="text" name="eid" value="${param.eid ne null ? param.eid : e.eid}"/> <br/>
+                ID: <input type="text" name="eid" value="${param.eid ne null ? param.eid : e.eid}"/> <br/>
                 Name: <input type="text" name="ename" value="${param.ename ne null ? param.ename : e.ename}"/> <br/>
                 Gender: <input type="radio" ${param.gender ne null and param.gender eq "male"?"checked=\"checked\"":""} 
                                name="gender" value="male"/> Male
@@ -29,7 +29,7 @@
                 Dob - From : <input type="date" name="from" value="${param.from}"/> - To: <input type="date" name="to" value="${param.to}"/> <br/>
                 Address: <input type="text" name="address" value="${param.address ne null ? param.address : e.address}"/> <br/>
                 Salary: 
-                <select name="sid" required>
+                <select name="sid">
                     <option value="-1">--------------ALL--------------</option>
                     <c:forEach items="${requestScope.sals}" var="s">
                         <option ${param.sid ne null and param.sid eq s.id ?"selected=\"selected\"":""}
@@ -53,7 +53,7 @@
         <!-- Bảng hiển thị kết quả tìm kiếm -->
         <table border="1px">
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Dob</th>

@@ -25,10 +25,6 @@ public class Shift {
         this.salary = salary;
     }
 
-    
-    
-    
-
     public int getId() {
         return id;
     }
