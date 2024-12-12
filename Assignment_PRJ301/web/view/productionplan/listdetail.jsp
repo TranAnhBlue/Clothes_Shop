@@ -1,7 +1,7 @@
 <%-- 
     Document   : listdetail
     Created on : Oct 18, 2024, 11:52:51 PM
-    Author     : DAO TUAN ANH
+    Author     : lenovo
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,14 +10,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Production Plan Details</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productionplandetail.css">
     </head>
     <body>
         <h1>${requestScope.plan.name} Detail</h1>
-
-
-
         <form action="detail" method="POST">
             <table border="1px">
                 <thead>
@@ -48,8 +45,6 @@
                     <tr>
                         <td>K2<input type="hidden" name="sid${d}" value="2"></td>
                             <c:forEach items="${requestScope.plan.headers}" var="h">
-
-
                             <td><input type="text" name="quantity${h.id}2${d}"
                                        <c:forEach items="${requestScope.details}" var="detail">
                                            <c:if test="${(detail.header.id eq h.id) and (detail.date eq d)  and (detail.sid eq 2)}"> value="${detail.quantity}"</c:if>
@@ -59,7 +54,6 @@
                     <tr>
                         <td>K3<input type="hidden" name="sid${d}" value="3"></td>
                             <c:forEach items="${requestScope.plan.headers}" var="h">
-
                             <td><input type="text" name="quantity${h.id}3${d}"
                                        <c:forEach items="${requestScope.details}" var="detail">
                                            <c:if test="${(detail.header.id eq h.id) and (detail.date eq d)  and (detail.sid eq 3)}"> value="${detail.quantity}"</c:if>
@@ -71,9 +65,5 @@
             </table>
             <input type="submit" value="Save">
         </form>
-
-
-
-
     </body>
 </html>

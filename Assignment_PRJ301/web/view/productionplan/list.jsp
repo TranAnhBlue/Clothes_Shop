@@ -109,7 +109,7 @@
     <body>
         <h1>Production Plan List</h1>
         <jsp:include page="../master/shortprofile.jsp"></jsp:include>
-            <h3><a href="create">Create ProductionPlan</a></h3>
+            <h3><a href="create">Create Production Plan</a></h3>
             <table border="1" cellpadding="5" cellspacing="0" style="text-align: center">
                 <tr>
                     <th>ID</th>

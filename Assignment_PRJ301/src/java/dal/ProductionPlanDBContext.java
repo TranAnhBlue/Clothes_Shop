@@ -128,6 +128,7 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
 
         try {
             // Chuẩn bị câu truy vấn với các tham số
+            // ví dụ 
             stm = connection.prepareStatement(sql);
             for (int i = 0; i < paramValues.size(); i++) {
                 stm.setObject((i + 1), paramValues.get(i));
@@ -147,8 +148,6 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                 d.setName(rs.getNString("dname"));
                 plan.setDept(d);
 
-                // Assuming Dept is populated elsewhere; you might need to adjust
-                // plan.setDept(...);
                 pps.add(plan);
 
             }

@@ -62,7 +62,7 @@
                 <option value="${y}" ${selectedYear == y ? "selected" : ""}>${y}</option>
             </c:forEach>
         </select>
-
+            
         <button type="submit">Select</button>
     </form>
 
@@ -99,7 +99,7 @@
             <tr>
                 <%      } %>
                 
-                <td class="day" onclick="window.location.href='../attendance-management/details?date=<%= selectedYear %>-<%= String.format("%02d", selectedMonth) %>-<%= String.format("%02d", day) %>&department='">
+                <td class="day" onclick="window.location.href='../attendance/attendance-details.jsp?date=<%= selectedYear %>-<%= String.format("%02d", selectedMonth) %>-<%= String.format("%02d", day) %>&department='">
                     <%= day %>
                 </td>
                 <% 

@@ -50,7 +50,7 @@
 
         <!-- Back to Dashboard Button -->
         <div class="button-container">
-            <button onclick="window.location.href = '../attendance-management'">Back to Dashboard</button>
+            <button onclick="window.location.href = '../attendance/attendance-dashboard.jsp'">Back to Dashboard</button>
         </div>
 
         <!-- Filter Selection Form -->
